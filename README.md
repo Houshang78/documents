@@ -44,8 +44,13 @@ Datei-Tree.
 
 ## Deploy
 
-Push auf `main` triggert die GitHub Action `.github/workflows/deploy.yml`,
-die das gebaute `dist/` per rsync nach `docs.pezeshkpour.eu` kopiert.
+Manuell — `npm run build` lokal, dann `dist/` per `rsync` auf den
+Server. Beispiel:
+
+```bash
+npm run build
+rsync -avz --delete dist/ user@pezeshkpour.eu:/var/www/docs.pezeshkpour.eu/
+```
 
 ## Migration zu Per-Project-Docs
 
