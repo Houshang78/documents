@@ -52,3 +52,16 @@ die das gebaute `dist/` per rsync nach `docs.pezeshkpour.eu` kopiert.
 Falls eine Doku später näher am Code leben soll (z.B.
 `MailGate-Backend/docs/`), reicht ein `git mv` und ein Pfad-Update
 in der Starlight-Config — der Lock-in ist minimal.
+
+## Lizenzen
+
+Dieses Repo ist dual-lizenziert:
+
+- **Inhalte** (Markdown/MDX-Dateien unter `src/content/`) — [Creative
+  Commons Attribution 4.0 International](LICENSE) (CC BY 4.0).
+  Wiederverwendung erlaubt, solange der Urheber genannt wird.
+- **Code** (Astro-Konfiguration, Workflows, Build-Scripts) —
+  [MIT](LICENSE-CODE).
+
+Bei Übernahme der Inhalte bitte verlinken auf
+`https://docs.pezeshkpour.eu` oder dieses Repo.
