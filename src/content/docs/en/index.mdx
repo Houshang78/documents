@@ -1,0 +1,40 @@
+---
+title: Pezeshkpour Docs
+description: Technical documentation for the projects of Amir Houshang Pezeshkpour.
+template: splash
+hero:
+  tagline: Technical documentation for the projects of Amir Houshang Pezeshkpour.
+  actions:
+    - text: Overview
+      link: /en/intro/
+      icon: right-arrow
+    - text: GitHub
+      link: https://github.com/Houshang78
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <Card title="MailGate" icon="email">
+    Self-hosted email platform with plugins, multi-tenancy,
+    Telegram-2FA, and integrated sidecars for passwords and
+    calendars. [Learn more →](/en/mailgate/overview/)
+  </Card>
+  <Card title="PoolX" icon="rocket">
+    Online platform for pool / lottery events. Operators organise
+    pools, participants join, payment is integrated.
+    [Learn more →](/en/poolx/overview/)
+  </Card>
+</CardGrid>
+
+## Structure
+
+Each project has four tabs in the sidebar — **Overview**,
+**Architecture**, **Installation** and **Usage**. Content is
+structured step-by-step: what and why first, then how and with
+which tools.
+
+Switch language top-right (DE / EN). The German version is the
+primary source; English translations follow.
