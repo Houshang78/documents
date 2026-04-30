@@ -68,6 +68,29 @@ User-IDs sind nach Rolle aufgeteilt — **kritischer Punkt**:
 
 Der Owner ist im Frontend tabu — Web-Login akzeptiert nur ID ≥ 10.
 
+## Zugriffsmodell für Mailboxen
+
+System-Mailboxen wie `info@`, `postmaster@`, `noreply@`, `support@`
+können **nicht direkt im Frontend angemeldet werden** (seit v2.0.1).
+Stattdessen gibt es zwei kontrollierte Zugriffspfade:
+
+- **API-Tokens** (`mgs_<base64>`, seit v2.0.0) — externe Apps wie
+  PoolX oder Skripte zur Passwort-Wiederherstellung authentifizieren
+  sich mit einem scope-eingeschränkten Token statt mit
+  Mailbox-Passwort. Der Klartext wird genau einmal beim Erzeugen
+  angezeigt; die DB speichert nur den SHA-256-Hash. Verwaltung im
+  Admin-Frontend unter **Admin → Access → API-Tokens**.
+- **Mailbox-Sharing** (seit v2.1.0) — Admin+ delegiert einer
+  konkreten Person Lese-/Sende-/Verwaltungs-Rechte auf eine
+  System-Mailbox. Die Person sieht die Mailbox als zusätzliche Box
+  in ihrer eigenen Webmail-Sidebar. Pro Person, signiert, einzeln
+  widerrufbar. Verwaltung unter **Admin → Access → Mailbox-Sharing**.
+
+Das Modell ersetzt das alte „drei Leute teilen sich das info@
+Passwort"-Anti-Pattern — Passwort-Rotation entfällt, Audit ist
+durchgängig, einzelne Berechtigungen können ohne Mailbox-Touchen
+widerrufen werden.
+
 ## Nächster Schritt
 
 → [Installation](/mailgate/installation/) führt durch das Aufsetzen.

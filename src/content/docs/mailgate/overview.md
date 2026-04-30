@@ -15,6 +15,8 @@ DB-Files.
 - **Webmail** — Next.js-Frontend mit Compose, Inbox, Suche, Kalender, Kontakte, Cloud-Drive
 - **Admin-Dashboard** — Tenant-, User-, Domain- und DKIM-Verwaltung
 - **2FA** — Telegram-basiert, Webhook statt Polling
+- **API-Tokens** — externe Apps (z.B. PoolX) authentifizieren sich mit `mgs_…`-Tokens statt Passwörtern, scope-gated (mail:send, contacts:read, …)
+- **Mailbox-Sharing** — System-Mailboxen (`info@`, `postmaster@`) lassen sich an einzelne Mitarbeiter delegieren, ohne das Mailbox-Passwort zu teilen
 - **Plugins** — Telegram-Bot, AI-Auto-Reply, Custom-Hooks
 - **Sidecars** — Vaultwarden für Passwörter, Radicale für CardDAV/CalDAV
 

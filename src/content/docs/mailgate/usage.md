@@ -57,6 +57,31 @@ das Konto vor v1.61 angebunden wurde.
 - **Auto-Login** — Master-Passwort verschlüsselt im Server
   hinterlegt, „Login-Token holen" liefert kurzlebigen Access-Token
 
+### API-Tokens für externe Apps
+
+**Admin → Access → API-Tokens**. Klick auf „Token erzeugen", wähle
+Principal (z.B. die System-Mailbox `noreply@<domain>`), gib einen
+Namen wie „PoolX Notifier" und die nötigen Scopes ein
+(`mail:send`, `auth:reset-password`, …). Der Klartext-Token wird
+**genau einmal** angezeigt — kopieren und in der App hinterlegen.
+
+In der App dann:
+```http
+POST /api/me/compose
+Authorization: Bearer mgs_<base64>
+```
+
+Token verloren? Widerrufen + neuen erzeugen. Server kennt nur den
+Hash, kann den Klartext nicht wiederherstellen.
+
+### Mailbox-Sharing für Mitarbeiter
+
+**Admin → Access → Mailbox-Sharing**. Klick auf „Zugriff erteilen",
+gib MailAccount-ID der System-Mailbox + Empfänger-User-ID +
+Permissions (`read`, `send`, `manage`) ein. Der Empfänger sieht die
+Mailbox ab dann in seiner Webmail-Sidebar als zusätzliche Box —
+ohne das Mailbox-Passwort zu kennen.
+
 ## CLI-Workflows
 
 ```bash
@@ -66,14 +91,34 @@ sudo mailgate-server --login houshang -p
 # Login mit OTP (production recovery, wenn Bot tot)
 sudo mailgate-server --login houshang -p --code-2fa
 
-# Backup
+# Backup (DBs allein, mit Mail-Tree, oder mit Vaultwarden-Daten)
+sudo mailgate-server --backup
+sudo mailgate-server --backup --include-mail
 sudo mailgate-server --backup --include-mail --include-vault
+
+# Factory-Reset (Tabula Rasa für Test-Server) — zweistufige Bestätigung
+sudo systemctl stop mailgate
+sudo mailgate-server --reset-factory
+sudo mailgate-server --reset-factory --include-mail --include-vault
 
 # Self-Test (read-only)
 sudo mailgate-server --selftest
 
 # Provider-Test gegen Gmail/Outlook
 sudo mailgate-server --provider-test --account-id 42
+
+# DKIM-Schlüssel
+sudo mailgate-server --dkim-list
+sudo mailgate-server --dkim-generate --domain example.com
+sudo mailgate-server --dkim-import --domain example.com --selector mail \
+  --private-key /pfad/zu/key.pem
+
+# Telegram-Setter (paste-freundlich, ohne interaktive Shell)
+sudo mailgate-server --set-telegram-token "<token>"
+sudo mailgate-server --set-telegram-chat <chat-id>
+
+# HTTP-Worker-Override (Restart nötig)
+sudo mailgate-server --set-workers 4
 ```
 
 ## Weiterführend
